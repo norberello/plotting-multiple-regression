@@ -1,0 +1,83 @@
+---
+title: "salaries sex and years of experience"
+author: "Norberto Asensio"
+date: "10/01/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(carData)
+data("Salaries")
+```
+
+```{r}
+model1 <- lm(salary ~ sex, data = Salaries)#how does sex explain salary
+summary(model1)$coef
+```
+
+```{r}
+contrasts(Salaries$sex)
+```
+
+salary = 101002 +14088*sex
+
+thus for males
+
+salary = 101002 +14088
+
+and for females
+
+salary = 101002
+
+```{r}
+boxplot(salary ~ sex, data = Salaries)
+t.test(salary ~ sex, data = Salaries)
+```
+
+```{r}
+library(jtools)
+effect_plot(model1, pred = sex)
+```
+
+
+
+
+```{r}
+#making predictions
+new.data<-data.frame(sex=c("Male","Female","Female","Male"))
+predict(model1,newdata =new.data)
+```
+
+```{r}
+library(ggplot2)
+ggplot(Salaries, aes(yrs.service,salary,shape=sex,colour=sex,fill=sex)) +geom_smooth(method="lm") +geom_point(size=3) +theme_bw() + xlab("years of service") +ylab("sex")
+```
+
+However, the figure represents to independent regressions, this is, one with female data only and the other one with male data only:
+
+```{r}
+ggplot(Salaries, aes(yrs.service,salary,shape=sex,colour=sex,fill=sex)) +geom_smooth(method="lm") +geom_point(size=3) +theme_bw() + xlab("years of service") +ylab("sex")+ facet_wrap(~sex)
+```
+
+```{r}
+model.fit<-lm(salary~yrs.service+sex,data = Salaries)
+```
+
+```{r}
+library(predict3d)
+ggPredict(model.fit,show.text=FALSE)
+```
+
+```{r}
+ggPredict(model.fit,se=T,
+          facet.modx = TRUE,show.text=FALSE)
+```
+
+```{r}
+ggPredict(model.fit,
+          show.point = F)
+```
