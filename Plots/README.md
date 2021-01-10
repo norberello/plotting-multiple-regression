@@ -1,1 +1,1 @@
-<img src=”Plots/cool.gif”>
+<img src=”Plots/cool.gif”> 
