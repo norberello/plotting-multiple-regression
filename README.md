@@ -1,2 +1,3 @@
-# plotting-multiple-regression
-Plotting multiple regression, a quantitative predictor and a binary dichotomous predictor
+# Plotting a multiple regression: a quantitative predictor and a binary dichotomous predictor
+
+<img src="Plots/00000f.png">
